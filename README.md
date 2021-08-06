@@ -7,7 +7,7 @@ Automatically add an issue or pull request to specific [GitHub Project](https://
 
 ### Contents
 1. [Inputs](#inputs)
-    1. [projects](#projects)
+    1. [Projects](#projects)
     1. [Topics](#topics)
     1. [Column_name](#column_name)
 
