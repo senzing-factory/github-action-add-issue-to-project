@@ -5,28 +5,40 @@
 
 Automatically add an issue or pull request to specific [GitHub Project](https://help.github.com/articles/about-project-boards/) when you __create__ and/or __label__ them. By default, the issues are assigned to the `To do` column and the pull requests to the `In progress` one, so make sure you have those columns in your project dashboard. But the workflow allowed you to specify the column name as input, so you can assign the issues/PRs based on a set of conditions to a specific column of a specific project. You can also specify repository topics and it will check if the repository has that topic and will add it to the project you specify.
 
+### Contents
+1. [Inputs](#inputs)
+    1. [projects](#projects)
+    1. [Topics](#topics)
+    1. [Column_name](#column_name)
+
+1. [Examples](#examples)
+    1. [Repository projects](#repository-projects)
+    1. [Organization or user projects](#organization-or-user-projects)
+    1. [Using topics](#using-topics)
+
 ## Inputs
 
-#### `project or project1 and project2`
+#### `Projects`
 
 The url of the project to be assigned to.
+You must use one of the follow sets of inputs:
+- project
+- project1 and project2
 
-#### `topic1 and topic2`
+#### `Topics`
 
-The string of the topic to check for. **Required** if you are using the project1 and project 2 inputs.
+The string of the topics to check for. **Required** if you are using the project1 and project 2 inputs.
 
-#### `column_name`
+#### `Column_name`
 
 **Optional**: The column name of the project, defaults to `'To do'` for issues and `'In progress'` for pull requests.
 
-## Example usage
-
-Examples of action:
+## Examples
 
 ### Repository project
 
 ```yaml
-name: Auto Assign to Project(s)
+name: Auto Assign to Project
 
 on:
   issues:
