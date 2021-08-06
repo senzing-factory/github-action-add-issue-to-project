@@ -155,4 +155,4 @@ jobs:
 
 ## Acknowledgment & Motivations
 
-This action has been modified from the action from [srggrs](https://github.com/srggrs/assign-one-project-github-action).
+This action has been modified from the action from [srggrs](https://github.com/srggrs/assign-one-project-github-action). We wanted a way to add an issue from a repository to one of our organization level projects based on a repository without changing the workflow for each repository.
