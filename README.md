@@ -9,7 +9,7 @@ The repository holds and shows example usage of the github workflow that can aut
 1. [Inputs](#inputs)
     1. [Projects](#projects)
     1. [Topics](#topics)
-    1. [Column_name](#column_name
+    1. [Column_name](#column_name)
 1. [Examples](#examples)
     1. [Repository project](#repository-project)
     1. [Organization or user projects](#organization-or-user-project)
