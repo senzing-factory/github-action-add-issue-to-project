@@ -3,17 +3,21 @@
 [docker]: https://hub.docker.com/r/srggrs/assign-one-project-github-action
 [license]: https://github.com/srggrs/assign-one-project-github-action/blob/master/LICENSE
 
-Automatically add an issue or pull request to specific [GitHub Project](https://help.github.com/articles/about-project-boards/) when you __create__ and/or __label__ them. By default, the issues are assigned to the `To do` column and the pull requests to the `In progress` one, so make sure you have those columns in your project dashboard. But the workflow allowed you to specify the column name as input, so you can assign the issues/PRs based on a set of conditions to a specific column of a specific project.
+Automatically add an issue or pull request to specific [GitHub Project](https://help.github.com/articles/about-project-boards/) when you __create__ and/or __label__ them. By default, the issues are assigned to the `To do` column and the pull requests to the `In progress` one, so make sure you have those columns in your project dashboard. But the workflow allowed you to specify the column name as input, so you can assign the issues/PRs based on a set of conditions to a specific column of a specific project. You can also specify repository topics and it will check if the repository has that topic and will add it to the project you specify.
 
 ## Inputs
 
-### `project`
+#### `project or project1 and project2`
 
-**Required** The url of the project to be assigned to.
+The url of the project to be assigned to.
 
-### `column_name`
+#### `topic1 and topic2`
 
-The column name of the project, defaults to `'To do'` for issues and `'In progress'` for pull requests.
+The string of the topic to check for. **Required** if you are using the project1 and project 2 inputs.
+
+#### `column_name`
+
+**optional** The column name of the project, defaults to `'To do'` for issues and `'In progress'` for pull requests.
 
 ## Example usage
 
