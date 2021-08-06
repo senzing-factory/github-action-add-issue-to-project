@@ -5,12 +5,6 @@
 
 Automatically add an issue or pull request to specific [GitHub Project](https://help.github.com/articles/about-project-boards/) when you __create__ and/or __label__ them. By default, the issues are assigned to the `To do` column and the pull requests to the `In progress` one, so make sure you have those columns in your project dashboard. But the workflow allowed you to specify the column name as input, so you can assign the issues/PRs based on a set of conditions to a specific column of a specific project.
 
-## Acknowledgment & Motivations
-
-This action has been modified from the original action from [masutaka](https://github.com/masutaka/github-actions-all-in-one-project). I needed to fix it as the original docker container would not build. Also I think the GitHub Action syntax changed a bit.
-
-I would like to thank @SunRunAway for adding the labelling functionality and custom column input.
-
 ## Inputs
 
 ### `project`
@@ -112,6 +106,6 @@ jobs:
         column_name: 'Labeled'
 ```
 
-## [Change Log](./CHANGELOG.md)
+## Acknowledgment & Motivations
 
-Please refer to the list of changes [here](./CHANGELOG.md)
+This action has been modified from the action from [srggrs](https://github.com/srggrs/assign-one-project-github-action).
