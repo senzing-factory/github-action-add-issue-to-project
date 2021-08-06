@@ -17,7 +17,7 @@ The string of the topic to check for. **Required** if you are using the project1
 
 #### `column_name`
 
-**optional** The column name of the project, defaults to `'To do'` for issues and `'In progress'` for pull requests.
+**Optional**: The column name of the project, defaults to `'To do'` for issues and `'In progress'` for pull requests.
 
 ## Example usage
 
@@ -41,19 +41,19 @@ jobs:
     runs-on: ubuntu-latest
     name: Assign to One Project
     steps:
-    - name: Assign NEW issues and NEW pull requests to project 2
-      uses: srggrs/assign-one-project-github-action@1.2.1
-      if: github.event.action == 'opened'
+    - name: Assign NEW issues or NEW pull requests to project 2
+      uses: Senzing/github-action-add-issue-to-project@1.0.0
       with:
-        project: 'https://github.com/srggrs/assign-one-project-github-action/projects/2'
+        project: 'https://github.com/{user}/{repository-name}/projects/2'
+        column_name: 'Backlog'
 
     - name: Assign issues and pull requests with `bug` label to project 3
-      uses: srggrs/assign-one-project-github-action@1.2.1
+      uses: Senzing/github-action-add-issue-to-project@1.0.0
       if: |
         contains(github.event.issue.labels.*.name, 'bug') ||
         contains(github.event.pull_request.labels.*.name, 'bug')
       with:
-        project: 'https://github.com/srggrs/assign-one-project-github-action/projects/3'
+        project: 'https://github.com/{user}/{repository-name}/projects/2'
         column_name: 'Labeled'
 ```
 
@@ -74,9 +74,9 @@ if: |
 ...
 ```
 
-### Organisation or User project
+### Organization or User project
 
-Generate a token from the Organisation settings or User Settings and add it as a secret in the repository secrets as `MY_GITHUB_TOKEN`
+Generate a token from the Organization settings or User Settings and add it as a secret in the repository secrets as `MY_GITHUB_TOKEN`
 
 ```yaml
 name: Auto Assign to Project(s)
@@ -95,10 +95,9 @@ jobs:
     name: Assign to One Project
     steps:
     - name: Assign NEW issues and NEW pull requests to project 2
-      uses: srggrs/assign-one-project-github-action@1.2.1
-      if: github.event.action == 'opened'
+      uses: Senzing/github-action-add-issue-to-project@1.0.0
       with:
-        project: 'https://github.com/srggrs/assign-one-project-github-action/projects/2'
+        project: 'https://github.com/org/{org-name}/projects/2'
 
     - name: Assign issues and pull requests with `bug` label to project 3
       uses: srggrs/assign-one-project-github-action@1.2.1
@@ -106,8 +105,40 @@ jobs:
         contains(github.event.issue.labels.*.name, 'bug') ||
         contains(github.event.pull_request.labels.*.name, 'bug')
       with:
-        project: 'https://github.com/srggrs/assign-one-project-github-action/projects/3'
+        project: 'https://github.com/org/{org-name}/projects/3'
         column_name: 'Labeled'
+```
+
+### Using topics
+
+Generate a token from the Organization settings or User Settings and add it as a secret in the repository secrets as `MY_GITHUB_TOKEN`.
+Under 'env:' add the "REPO_URL" variable and use the project1, project2, topic1, and topic2 inputs. If the repository has topic1 then it will be put in project1 and topic2 will be put in project2. If you are using "column_name" make sure that both repositories have that column
+
+```yaml
+name: Auto Assign to Project
+
+on:
+  issues:
+    types: [opened, labeled]
+  pull_request_target:
+    types: [opened, labeled]
+env:
+  MY_GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+  REPO_URL: ${{ github.event.repository.url}}
+  
+jobs:
+  assign_one_project:
+    runs-on: ubuntu-latest
+    name: Assign to One Project
+    steps:
+    - name: Check for repository topics and add to project based on topic
+      uses: Senzing/github-action-add-issue-to-project@1.0.0
+      with:
+        project1: 'https://github.com/org/{org-name}/projects/2'
+        project1: 'https://github.com/org/{org-name}/projects/4'
+        topic1: 'my-topic1`
+        topic2: 'my-topic2'
+        column_name: 'Backlog'
 ```
 
 ## Acknowledgment & Motivations
