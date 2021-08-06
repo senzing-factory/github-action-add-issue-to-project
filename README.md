@@ -12,8 +12,8 @@ Automatically add an issue or pull request to specific [GitHub Project](https://
     1. [Column_name](#column_name)
 
 1. [Examples](#examples)
-    1. [Repository projects](#repository-projects)
-    1. [Organization or user projects](#organization-or-user-projects)
+    1. [Repository project](#repository-project)
+    1. [Organization or user projects](#organization-or-user-project)
     1. [Using topics](#using-topics)
 
 ## Inputs
