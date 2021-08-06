@@ -26,14 +26,16 @@ The repository holds and shows example usage of the github workflow that can aut
 
 ## Inputs
 
-#### `Projects` :thinking:
+#### `Projects` 
+:thinking:
 
 The url of the project to be assigned to.
 You must use one of the follow sets of inputs:
 - project
 - project1 and project2
 
-#### `Topics` :thinking:
+#### `Topics` 
+:thinking:
 
 The string of the topics to check for. **Required** if you are using the project1 and project 2 inputs.
 
@@ -77,7 +79,8 @@ jobs:
         column_name: 'Labeled'
 ```
 
-#### __Notes__ :thinking:
+#### Notes
+:thinking:
 Be careful of using the conditions above (opened and labeled issues/PRs) because in such workflow, if the issue/PR is opened and labeled at the same time, it will be assigned to __both__ projects!
 
 
@@ -94,7 +97,8 @@ if: |
 ...
 ```
 
-### Organization or User project :pencil2:
+### Organization or User project 
+:pencil2:
 
 Generate a token from the Organization settings or User Settings and add it as a secret in the repository secrets as `MY_GITHUB_TOKEN`
 
@@ -129,7 +133,8 @@ jobs:
         column_name: 'Labeled'
 ```
 
-### Using topics :pencil2:
+### Using topics 
+:pencil2:
 
 Generate a token from the Organization settings or User Settings and add it as a secret in the repository secrets as `MY_GITHUB_TOKEN`.
 Under 'env:' add the "REPO_URL" variable and use the project1, project2, topic1, and topic2 inputs. If the repository has topic1 then it will be put in project1 and topic2 will be put in project2. If you are using "column_name" make sure that both repositories have that column
