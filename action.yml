@@ -1,0 +1,38 @@
+# action.yml
+name: 'Assign to One Project'
+description: 'Assign new/labeled Issue or Pull Request to a specific project dashboard column'
+author: srggrs
+inputs:
+  project:
+    description: 'The url of the project to be assigned to.'
+    required: false
+  project1:
+    description: 'The url of the first tagged project to be assigned to.'
+    required: false
+  project2:
+    description: 'The url of the first tagged project to be assigned to'
+    required: false
+  topic1:
+    description: 'A topic of the repository to check'
+    required: false
+  topic2:
+    description: 'A topic of the repository to check'
+    required: false
+  column_name:
+    description: 'The column name of the project, defaults to "To do" for issues and "In progress" for pull requests.'
+    required: false
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.project }}
+    - ${{ inputs.project1 }}
+    - ${{ inputs.project2 }}
+    - ${{ inputs.topic1 }}
+    - ${{ inputs.topic2 }}
+    - ${{ inputs.column_name }}
+
+branding:
+  icon: 'box'
+  color: 'red'
