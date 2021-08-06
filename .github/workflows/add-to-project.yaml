@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Assign to One Projecta
     steps:
-    - name: Assign NEW issues and NEW pull requests to project 2
+    - name: Assign issues in repo with topics to repositories
       uses: Senzing/github-action-add-issue-to-project@1.0.0
       with:
         project1: 'https://github.com/orgs/Senzing/projects/2'
