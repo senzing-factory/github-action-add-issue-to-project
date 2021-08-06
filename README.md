@@ -1,31 +1,39 @@
 # github-action-add-issue-to-project
 
-[docker]: https://hub.docker.com/r/srggrs/assign-one-project-github-action
-[license]: https://github.com/srggrs/assign-one-project-github-action/blob/master/LICENSE
+## Overview
 
-Automatically add an issue or pull request to specific [GitHub Project](https://help.github.com/articles/about-project-boards/) when you __create__ and/or __label__ them. By default, the issues are assigned to the `To do` column and the pull requests to the `In progress` one, so make sure you have those columns in your project dashboard. But the workflow allowed you to specify the column name as input, so you can assign the issues/PRs based on a set of conditions to a specific column of a specific project. You can also specify repository topics and it will check if the repository has that topic and will add it to the project you specify.
+The repository holds and shows example usage of the github workflow that can automatically add issues and pull-requests to github projects. The workflow can check labels, project columns, and repository topics to conditionally add issues or pull-requests to selected projects.
 
 ### Contents
+
 1. [Inputs](#inputs)
     1. [Projects](#projects)
     1. [Topics](#topics)
-    1. [Column_name](#column_name)
-
+    1. [Column_name](#column_name
 1. [Examples](#examples)
     1. [Repository project](#repository-project)
     1. [Organization or user projects](#organization-or-user-project)
     1. [Using topics](#using-topics)
+1. [References](#references)
+
+### Legend
+
+1. :thinking: - A "thinker" icon means that a little extra thinking may be required.
+   Perhaps you'll need to make some choices.
+   Perhaps it's an optional step.
+1. :pencil2: - A "pencil" icon means that the instructions may need modification before performing.
+1. :warning: - A "warning" icon means that something tricky is happening, so pay attention.
 
 ## Inputs
 
-#### `Projects`
+#### `Projects` :thinking:
 
 The url of the project to be assigned to.
 You must use one of the follow sets of inputs:
 - project
 - project1 and project2
 
-#### `Topics`
+#### `Topics` :thinking:
 
 The string of the topics to check for. **Required** if you are using the project1 and project 2 inputs.
 
@@ -35,7 +43,7 @@ The string of the topics to check for. **Required** if you are using the project
 
 ## Examples
 
-### Repository project
+### Repository project :pencil2:
 
 ```yaml
 name: Auto Assign to Project
@@ -69,7 +77,7 @@ jobs:
         column_name: 'Labeled'
 ```
 
-#### __Notes__
+#### __Notes__ :thinking:
 Be careful of using the conditions above (opened and labeled issues/PRs) because in such workflow, if the issue/PR is opened and labeled at the same time, it will be assigned to __both__ projects!
 
 
@@ -86,7 +94,7 @@ if: |
 ...
 ```
 
-### Organization or User project
+### Organization or User project :pencil2:
 
 Generate a token from the Organization settings or User Settings and add it as a secret in the repository secrets as `MY_GITHUB_TOKEN`
 
@@ -121,7 +129,7 @@ jobs:
         column_name: 'Labeled'
 ```
 
-### Using topics
+### Using topics :pencil2:
 
 Generate a token from the Organization settings or User Settings and add it as a secret in the repository secrets as `MY_GITHUB_TOKEN`.
 Under 'env:' add the "REPO_URL" variable and use the project1, project2, topic1, and topic2 inputs. If the repository has topic1 then it will be put in project1 and topic2 will be put in project2. If you are using "column_name" make sure that both repositories have that column
@@ -153,6 +161,10 @@ jobs:
         column_name: 'Backlog'
 ```
 
-## Acknowledgment & Motivations
+## References
 
-This action has been modified from the action from [srggrs](https://github.com/srggrs/assign-one-project-github-action). We wanted a way to add an issue from a repository to one of our organization level projects based on a repository without changing the workflow for each repository.
+1. Github workflow
+    1. [Documentation](https://docs.github.com/en/rest/reference/actions)
+    1. [Github actions](https://github.com/features/actions)
+1. Inspiration
+    1. [GitHub](https://github.com/srggrs/assign-one-project-github-action)
