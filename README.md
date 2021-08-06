@@ -26,18 +26,17 @@ The repository holds and shows example usage of the github workflow that can aut
 
 ## Inputs
 
-#### `Projects` 
-:thinking:
+#### `Projects`
 
-The url of the project to be assigned to.
+:thinking: The url of the project to be assigned to.
 You must use one of the follow sets of inputs:
 - project
 - project1 and project2
 
 #### `Topics` 
-:thinking:
 
-The string of the topics to check for. **Required** if you are using the project1 and project 2 inputs.
+
+:thinking: The string of the topics to check for. **Required** if you are using the project1 and project 2 inputs.
 
 #### `Column_name`
 
@@ -134,9 +133,8 @@ jobs:
 ```
 
 ### Using topics 
-:pencil2:
 
-Generate a token from the Organization settings or User Settings and add it as a secret in the repository secrets as `MY_GITHUB_TOKEN`.
+:pencil2: Generate a token from the Organization settings or User Settings and add it as a secret in the repository secrets as `MY_GITHUB_TOKEN`.
 Under 'env:' add the "REPO_URL" variable and use the project1, project2, topic1, and topic2 inputs. If the repository has topic1 then it will be put in project1 and topic2 will be put in project2. If you are using "column_name" make sure that both repositories have that column
 
 ```yaml
