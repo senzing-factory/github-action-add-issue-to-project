@@ -5,6 +5,14 @@ PROJECT1_URL="$INPUT_PROJECT1"
 PROJECT2_URL="$INPUT_PROJECT2"
 TOPIC1="$INPUT_TOPIC1"
 TOPIC2="$INPUT_TOPIC2"
+
+if [ "$PROJECT_URL" ]; then
+  if [ "$PROJECT1_URL" ] || [ "$PROJECT2_URL" ]; then
+    echo "Use the correct set of project inputs." >&2
+    exit 1
+  fi
+fi
+
 if [ -z "$PROJECT1_URL" ] && [ "$PROJECT2_URL" ]; then
   echo "PROJECT1_URL is not defined." >&2
   exit 1
@@ -17,7 +25,7 @@ fi
 
 if [ "$PROJECT2_URL" ] && [ "$PROJECT1_URL" ]; then
   if [ -z "$TOPIC1" ] || [ -z "$TOPIC2" ]; then
-    echo "A topic is not defined." >&2
+    echo "2 topics must be defined." >&2
     exit 1
   fi
 fi
@@ -27,7 +35,6 @@ if [ -z "$PROJECT2_URL" ] && [ -z "$PROJECT1_URL" ] && [ -z "$PROJECT_URL" ]; th
   exit 1
 fi
 
-#if [ "$PROJECT_URL" ]; then
 get_project_type() {
   _PROJECT_URL="$1"
 
@@ -48,51 +55,6 @@ get_project_type() {
   esac
   unset _PROJECT_URL
 }
-#fi
-
-#if [ "$PROJECT2_URL" ] && [ "$PROJECT1_URL" ]; then
-#  get_project1_type() {
-#  _PROJECT_URL1="$1"
-#
-#  case "$_PROJECT1_URL" in
-#    https://github.com/orgs/*)
-#      echo "org"
-#      ;;
-#    https://github.com/users/*)
-#      echo "user"
-#      ;;
-#    https://github.com/*/projects/*)
-#      echo "repo"
-#      ;;
-#    *)
-#      echo "Invalid PROJECT1_URL: $_PROJECT_URL1" >&2
-#      exit 1
-#      ;;
-#  esac
-#  unset _PROJECT_URL1
-#}
-#
-#  get_project2_type() {
-#  _PROJECT_URL2="$1"
-#
-#  case "$_PROJECT2_URL" in
-#    https://github.com/orgs/*)
-#      echo "org"
-#      ;;
-#    https://github.com/users/*)
-#      echo "user"
-#      ;;
-#    https://github.com/*/projects/*)
-#      echo "repo"
-#      ;;
-#    *)
-#     echo "Invalid PROJECT2_URL: $_PROJECT_URL2" >&2
-#      exit 1
-#      ;;
-#  esac
-#  unset _PROJECT_URL2
-#}
-#fi
 
 _TOPICS=$(curl -s -X GET -u "$GITHUB_ACTOR:$TOKEN" --retry 3 \
             -H "Accept: application/vnd.github.mercy-preview+json" \
@@ -101,7 +63,6 @@ _TOPICS=$(curl -s -X GET -u "$GITHUB_ACTOR:$TOKEN" --retry 3 \
 a=${_TOPICS#*topics}  
 b=${a#*[}  
 topics=${b%]*}
-echo $([[ "$topics" = .*"$TOPIC1".* ]])
 
 if echo "$topics" | grep -q "$TOPIC1"; then
   PROJECT_URL=${PROJECT1_URL}
@@ -115,6 +76,8 @@ elif echo "$topics" | grep -q "$TOPIC2"; then
 
 else
   "This repository does not have a matching topic"
+  exit 1
+  
 fi
 
 curl \

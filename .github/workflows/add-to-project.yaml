@@ -5,7 +5,9 @@ name: Auto Assign issue to Project
 
 on:
   issues:
-    types: [opened, labeled]
+    types:
+      - reopened
+      - opened
 env:
   GITHUB_TOKEN: ${{ secrets.SENZING_GITHUB_ACCESS_TOKEN }}
   REPO_URL: ${{ github.event.repository.url}}
