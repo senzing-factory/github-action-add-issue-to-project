@@ -6,6 +6,13 @@ PROJECT2_URL="$INPUT_PROJECT2"
 TOPIC1="$INPUT_TOPIC1"
 TOPIC2="$INPUT_TOPIC2"
 
+if [ "$PROJECT_URL" ]; then
+  if [ "$PROJECT1_URL" ] || [ "$PROJECT2_URL" ]; then
+    echo "Use the correct set of project inputs." >&2
+    exit 1
+  fi
+fi
+
 if [ -z "$PROJECT1_URL" ] && [ "$PROJECT2_URL" ]; then
   echo "PROJECT1_URL is not defined." >&2
   exit 1
