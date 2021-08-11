@@ -18,12 +18,12 @@ if [ -z "$PROJECT1_URL" ] && [ "$PROJECT2_URL" ]; then
   exit 1
 fi
 
-if [ -z "$PROJECT2_URL" ] && [ "$PROJECT1_URL" ]; then
-  echo "PROJECT_URL2 is not defined." >&2
+if [ "$PROJECT1_URL"] && [ -z "$TOPIC1" ]; then
+  echo "topic1 is not defined" >&2
   exit 1
 fi
 
-if [ "$PROJECT2_URL" ] && [ "$PROJECT1_URL" ]; then
+if [ "$PROJECT1_URL" ] && [ "$PROJECT2_URL" ]; then
   if [ -z "$TOPIC1" ] || [ -z "$TOPIC2" ]; then
     echo "2 topics must be defined." >&2
     exit 1
@@ -56,28 +56,26 @@ get_project_type() {
   unset _PROJECT_URL
 }
 
-_TOPICS=$(curl -s -X GET -u "$GITHUB_ACTOR:$TOKEN" --retry 3 \
-            -H "Accept: application/vnd.github.mercy-preview+json" \
-            ${REPO_URL})
+if [ "$PROJECT1_URL" ]; then
+  _TOPICS=$(curl -s -X GET -u "$GITHUB_ACTOR:$TOKEN" --retry 3 \
+              -H "Accept: application/vnd.github.mercy-preview+json" \
+              ${REPO_URL})
 
-a=${_TOPICS#*topics}  
-b=${a#*[}  
-topics=${b%]*}
+  a=${_TOPICS#*topics}  
+  b=${a#*[}  
+  topics=${b%]*}
 
-if echo "$topics" | grep -q "$TOPIC1"; then
-  PROJECT_URL=${PROJECT1_URL}
-  _PROJECT_TYPE="$1"
-  _PROJECT_URL="$2"
+  if echo "$topics" | grep -q "$TOPIC1"; then
+    PROJECT_URL=${PROJECT1_URL}
 
-elif echo "$topics" | grep -q "$TOPIC2"; then
-  PROJECT_URL=${PROJECT2_URL}
-  _PROJECT_TYPE="$1"
-  _PROJECT_URL="$2"
+  elif [echo "$topics" | grep -q "$TOPIC2"] && ["$PROJECT2_URL"]; then
+    PROJECT_URL=${PROJECT2_URL}
 
-else
-  "This repository does not have a matching topic"
-  exit 1
-  
+  else
+    "This repository does not have a matching topic"
+    exit 1
+
+  fi
 fi
 
 curl \
