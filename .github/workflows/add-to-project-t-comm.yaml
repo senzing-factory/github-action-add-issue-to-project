@@ -15,6 +15,7 @@ jobs:
   assign_one_project:
     runs-on: ubuntu-latest
     steps:
+    - name: Assign issues to project
       uses: Senzing/github-action-add-issue-to-project@1.0.0
       with:
         project: 'https://github.com/orgs/Senzing/projects/2'
