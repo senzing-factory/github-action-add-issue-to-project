@@ -1,5 +1,5 @@
 # Container image that runs your code
-FROM alpine:3.18.4
+FROM alpine:3.18.5
 
 RUN apk add --no-cache --no-progress curl jq
 
