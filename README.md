@@ -167,7 +167,7 @@ jobs:
 
 ## References
 
-1. Github workflow
+1. GitHub workflow
     1. [Documentation](https://docs.github.com/en/rest/reference/actions)
     1. [GitHub actions](https://github.com/features/actions)
 1. Inspiration
