@@ -1,4 +1,4 @@
-#!/bin/sh -l
+#!/usr/bin/env bash
 
 PROJECT_URL="$INPUT_PROJECT"
 PROJECT1_URL="$INPUT_PROJECT1"
@@ -61,32 +61,6 @@ get_project_type() {
   unset _PROJECT_URL
 }
 
-if [ "$PROJECT1_URL" ]; then
-  _TOPICS=$(curl -s -X GET -u "$GITHUB_ACTOR:$TOKEN" --retry 3 \
-              -H "Accept: application/vnd.github.mercy-preview+json" \
-              ${REPO_URL})
-
-  a=${_TOPICS#*topics}  
-  b=${a#*[}  
-  topics=${b%]*}
-
-  if echo "$topics" | grep -q "$TOPIC1"; then
-    PROJECT_URL=${PROJECT1_URL}
-
-  elif [echo "$topics" | grep -q "$TOPIC2"] && ["$PROJECT2_URL"]; then
-    PROJECT_URL=${PROJECT2_URL}
-
-  else
-    "This repository does not have a matching topic"
-    exit 1
-
-  fi
-fi
-
-curl \
-  -H "Accept: application/vnd.github.mercy-preview+json" \
-  https://api.github.com/
-  
 find_project_id() {
   if [ "$PROJECT_URL" ]; then
     _PROJECT_TYPE="$1"
@@ -134,6 +108,33 @@ find_column_id() {
   echo "$_COLUMNS" | jq -r ".[] | select(.name == \"$_INITIAL_COLUMN_NAME\").id"
   unset _PROJECT_ID _INITIAL_COLUMN_NAME _COLUMNS
 }
+
+if [ "$PROJECT1_URL" ]; then
+  _TOPICS=$(curl -s -X GET -u "$GITHUB_ACTOR:$TOKEN" --retry 3 \
+              -H "Accept: application/vnd.github.mercy-preview+json" \
+              ${REPO_URL})
+
+  a=${_TOPICS#*topics}  
+  b=${a#*[}  
+  topics=${b%]*}
+
+  if echo "$topics" | grep -q "$TOPIC1"; then
+    PROJECT_URL=${PROJECT1_URL}
+
+  elif echo "$topics" | grep -q "$TOPIC2" && [ "$PROJECT2_URL" ] ; then
+    PROJECT_URL=${PROJECT2_URL}
+
+  else
+    "This repository does not have a matching topic"
+    exit 1
+
+  fi
+fi
+
+curl \
+  -H "Accept: application/vnd.github.mercy-preview+json" \
+  https://api.github.com/
+
 
 PROJECT_TYPE=$(get_project_type "${PROJECT_URL:?<Error> required this environment variable}")
 
