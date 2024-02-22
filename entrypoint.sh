@@ -69,10 +69,12 @@ find_project_id() {
 
   case "$_PROJECT_TYPE" in
     org)
+      # shellcheck disable=SC2001
       _ORG_NAME=$(echo "$_PROJECT_URL" | sed -e 's@https://github.com/orgs/\([^/]\+\)/projects/[0-9]\+@\1@')
       _ENDPOINT="https://api.github.com/orgs/$_ORG_NAME/projects"
       ;;
     user)
+      # shellcheck disable=SC2001
       _USER_NAME=$(echo "$_PROJECT_URL" | sed -e 's@https://github.com/users/\([^/]\+\)/projects/[0-9]\+@\1@')
       _ENDPOINT="https://api.github.com/users/$_USER_NAME/projects"
       ;;
@@ -112,7 +114,7 @@ find_column_id() {
 if [ "$PROJECT1_URL" ]; then
   _TOPICS=$(curl -s -X GET -u "$GITHUB_ACTOR:$TOKEN" --retry 3 \
               -H "Accept: application/vnd.github.mercy-preview+json" \
-              ${REPO_URL})
+              "${REPO_URL}")
 
   a=${_TOPICS#*topics}  
   b=${a#*[}  

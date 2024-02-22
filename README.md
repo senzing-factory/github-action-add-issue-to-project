@@ -30,11 +30,11 @@ The repository holds and shows example usage of the GitHub workflow that can aut
 
 :thinking: The URL of the project to be assigned to.
 You must use one of the follow sets of inputs:
+
 - project
 - project1 and/or project2
 
 ### `Topics`
-
 
 :thinking: The string of the topics to check for. **Required** if you are using the project1 and/or project 2 inputs.
 
@@ -45,6 +45,7 @@ You must use one of the follow sets of inputs:
 ## Examples
 
 ### Repository project
+
 :pencil2:
 
 ```yaml
@@ -80,11 +81,12 @@ jobs:
 ```
 
 #### Notes
+
 :thinking:
 Be careful of using the conditions above (opened and labeled issues/PRs) because in such workflow, if the issue/PR is opened and labeled at the same time, it will be assigned to **both** projects!
 
-
 You can use any combination of conditions. For example, to assign new issues or issues labeled with 'mylabel' to a project column, use:
+
 ```yaml
 ...
 
@@ -98,6 +100,7 @@ if: |
 ```
 
 ### Organization or User project
+
 :pencil2:
 
 Generate a token from the Organization settings or User Settings and add it as a secret in the repository secrets as `MY_GITHUB_TOKEN`
