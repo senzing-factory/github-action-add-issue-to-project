@@ -170,14 +170,14 @@ jobs:
 
 1. GitHub workflow
    1. [Documentation]
-   1. [GitHub actions](https://github.com/features/actions)
+   1. [GitHub Actions]
 1. Inspiration
    1. [GitHub]
 
 [Column_name]: #column_name
 [Documentation]: https://docs.github.com/en/rest/reference/actions
 [Examples]: #examples
-[GitHub actions]: https://github.com/features/actions
+[GitHub Actions]: https://github.com/features/actions
 [GitHub]: https://github.com/srggrs/assign-one-project-github-action
 [Inputs]: #inputs
 [Organization or user projects]: #organization-or-user-project
