@@ -6,15 +6,15 @@ The repository holds and shows example usage of the GitHub workflow that can aut
 
 ### Contents
 
-1. [Inputs](#inputs)
-    1. [Projects](#projects)
-    1. [Topics](#topics)
-    1. [Column_name](#column_name)
-1. [Examples](#examples)
-    1. [Repository project](#repository-project)
-    1. [Organization or user projects](#organization-or-user-project)
-    1. [Using topics](#using-topics)
-1. [References](#references)
+1. [Inputs]
+   1. [Projects]
+   1. [Topics]
+   1. [Column_name]
+1. [Examples]
+   1. [Repository project]
+   1. [Organization or user projects]
+   1. [Using topics]
+1. [References]
 
 ### Legend
 
@@ -64,20 +64,20 @@ jobs:
     runs-on: ubuntu-latest
     name: Assign to One Project
     steps:
-    - name: Assign NEW issues or NEW pull requests to project 2
-      uses: Senzing/github-action-add-issue-to-project@1.0.0
-      with:
-        project: 'https://github.com/{user}/{repository-name}/projects/2'
-        column_name: 'Backlog'
+      - name: Assign NEW issues or NEW pull requests to project 2
+        uses: Senzing/github-action-add-issue-to-project@1.0.0
+        with:
+          project: "https://github.com/{user}/{repository-name}/projects/2"
+          column_name: "Backlog"
 
-    - name: Assign issues and pull requests with `bug` label to project 3
-      uses: Senzing/github-action-add-issue-to-project@1.0.0
-      if: |
-        contains(github.event.issue.labels.*.name, 'bug') ||
-        contains(github.event.pull_request.labels.*.name, 'bug')
-      with:
-        project: 'https://github.com/{user}/{repository-name}/projects/2'
-        column_name: 'Labeled'
+      - name: Assign issues and pull requests with `bug` label to project 3
+        uses: Senzing/github-action-add-issue-to-project@1.0.0
+        if: |
+          contains(github.event.issue.labels.*.name, 'bug') ||
+          contains(github.event.pull_request.labels.*.name, 'bug')
+        with:
+          project: "https://github.com/{user}/{repository-name}/projects/2"
+          column_name: "Labeled"
 ```
 
 #### Notes
@@ -88,15 +88,13 @@ Be careful of using the conditions above (opened and labeled issues/PRs) because
 You can use any combination of conditions. For example, to assign new issues or issues labeled with 'mylabel' to a project column, use:
 
 ```yaml
-...
-
+---
 if: |
   github.event == 'issue' &&
   (
     github.event.action == 'opened' ||
     contains(github.event.issue.labels.*.name, 'mylabel')
   )
-...
 ```
 
 ### Organization or User project
@@ -121,19 +119,19 @@ jobs:
     runs-on: ubuntu-latest
     name: Assign to One Project
     steps:
-    - name: Assign NEW issues and NEW pull requests to project 2
-      uses: Senzing/github-action-add-issue-to-project@1.0.0
-      with:
-        project: 'https://github.com/org/{org-name}/projects/2'
+      - name: Assign NEW issues and NEW pull requests to project 2
+        uses: Senzing/github-action-add-issue-to-project@1.0.0
+        with:
+          project: "https://github.com/org/{org-name}/projects/2"
 
-    - name: Assign issues and pull requests with `bug` label to project 3
-      uses: srggrs/assign-one-project-github-action@1.2.1
-      if: |
-        contains(github.event.issue.labels.*.name, 'bug') ||
-        contains(github.event.pull_request.labels.*.name, 'bug')
-      with:
-        project: 'https://github.com/org/{org-name}/projects/3'
-        column_name: 'Labeled'
+      - name: Assign issues and pull requests with `bug` label to project 3
+        uses: srggrs/assign-one-project-github-action@1.2.1
+        if: |
+          contains(github.event.issue.labels.*.name, 'bug') ||
+          contains(github.event.pull_request.labels.*.name, 'bug')
+        with:
+          project: "https://github.com/org/{org-name}/projects/3"
+          column_name: "Labeled"
 ```
 
 ### Using topics
@@ -152,26 +150,39 @@ on:
 env:
   MY_GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
   REPO_URL: ${{ github.event.repository.url}}
-  
+
 jobs:
   assign_one_project:
     runs-on: ubuntu-latest
     name: Assign to One Project
     steps:
-    - name: Check for repository topics and add to project based on topic
-      uses: Senzing/github-action-add-issue-to-project@1.0.0
-      with:
-        project1: 'https://github.com/org/{org-name}/projects/2'
-        project2: 'https://github.com/org/{org-name}/projects/4'
-        topic1: 'my-topic1'
-        topic2: 'my-topic2'
-        column_name: 'Backlog'
+      - name: Check for repository topics and add to project based on topic
+        uses: Senzing/github-action-add-issue-to-project@1.0.0
+        with:
+          project1: "https://github.com/org/{org-name}/projects/2"
+          project2: "https://github.com/org/{org-name}/projects/4"
+          topic1: "my-topic1"
+          topic2: "my-topic2"
+          column_name: "Backlog"
 ```
 
 ## References
 
 1. GitHub workflow
-    1. [Documentation](https://docs.github.com/en/rest/reference/actions)
-    1. [GitHub actions](https://github.com/features/actions)
+   1. [Documentation]
+   1. [GitHub Actions]
 1. Inspiration
-    1. [GitHub](https://github.com/srggrs/assign-one-project-github-action)
+   1. [GitHub]
+
+[Column_name]: #column_name
+[Documentation]: https://docs.github.com/en/rest/reference/actions
+[Examples]: #examples
+[GitHub Actions]: https://github.com/features/actions
+[GitHub]: https://github.com/srggrs/assign-one-project-github-action
+[Inputs]: #inputs
+[Organization or user projects]: #organization-or-user-project
+[Projects]: #projects
+[References]: #references
+[Repository project]: #repository-project
+[Topics]: #topics
+[Using topics]: #using-topics
